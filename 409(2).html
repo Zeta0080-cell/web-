@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>409web编辑器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .editor {
+            display: flex;
+            gap: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #2e2e2e;
+            color: #ffffff;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            resize: none;
+        }
+        iframe {
+            flex: 1;
+            border: 5px solid #444;
+            border-radius: 5px;
+            background-color: #ffffff;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>409基地web编辑器</h1>
+    <div class="container">
+        <div class="editor">
+            <textarea id="html" placeholder="请输入HTML代码"></textarea>
+            <textarea id="css" placeholder="请输入CSS代码"></textarea>
+            <textarea id="js" placeholder="请输入JavaScript代码"></textarea>
+        </div>
+        <button onclick="updatePreview()">点击此处更新并预览效果</button>
+        <iframe id="preview"></iframe>
+    </div>
+
+    <script>
+        function updatePreview() {
+            const html = document.getElementById('html').value;
+            const css = `<style>${document.getElementById('css').value}</style>`;
+            const js = document.getElementById('js').value;
+
+            const iframe = document.getElementById('preview');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+            iframeDoc.open();
+            iframeDoc.write(html + css + `<script>${js}<\/script>`);
+            iframeDoc.close();
+        }
+    </script>
+</body>
+</html>
